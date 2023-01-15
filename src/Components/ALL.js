@@ -24,7 +24,7 @@ function LibCont() {
                                     All
                                 </Link>
                                 <Link to="/Bib1" className="var-btn">
-                                    BU Duoa
+                                    BU Doua
                                 </Link>
                                 <Link to="/Bib2" className="var-btn">
                                     Bib M-C
