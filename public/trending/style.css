@@ -1,0 +1,276 @@
+/*
+     Trending 
+
+     inspired by my brother https://dribbble.com/shots/2479405-Day-69-Trending
+*/
+* {
+  font-family: "Montserrat", sans-serif;
+  box-sizing: border-box;
+}
+
+body,
+html {
+  margin: 0;
+  padding: 0;
+  font-size: 62.5%;
+  background-color: transparent;
+  overflow-x: hidden;
+}
+
+.wrapper {
+  margin: 120px 0;
+}
+
+.card {
+  background-image: linear-gradient(159deg, #47455d 0%, #323045 97%);
+  box-shadow: 0px 31px 35px 0px rgba(0, 0, 0, 0.38);
+  width: 525px;
+  height: 150px;
+  margin: 0 auto 150px;
+  position: relative;
+  padding: 20px 40px;
+}
+.card:last-child {
+  margin-bottom: 0;
+}
+.card__rank {
+  box-shadow: 0px 16px 30px 0px rgba(0, 0, 0, 0.53);
+  background: #9DD5FF;
+  color: #fff;
+  padding: 9px;
+  font-size: 2.3rem;
+  position: absolute;
+  left: -20px;
+  top: 20px;
+  width: 45px;
+  height: 45px;
+  text-align: center;
+  text-shadow: 0px 10px 20px #000000;
+}
+.card__title {
+  font-size: 5rem;
+  color: #FFFFFF;
+  letter-spacing: 0.56px;
+  line-height: 48px;
+  text-shadow: 0px 14px 40px #000000;
+  font-weight: 700;
+  text-transform: uppercase;
+  display: inline-block;
+  z-index: 1;
+  position: relative;
+}
+.card__date {
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  letter-spacing: 3.6px;
+  color: rgba(255, 255, 255, 0.3);
+  position: absolute;
+  top: -28px;
+  z-index: 1;
+}
+.card__image {
+  width: 600px;
+  position: absolute;
+  top: -20px;
+  right: -420px;
+  z-index: 0;
+}
+.card__image:after {
+  content: "";
+  opacity: 0;
+  transition: all 0.3s;
+  left: 0;
+  position: absolute;
+  width: 150px;
+  height: 150px;
+  background-color: #fff;
+  transform: rotate(45deg);
+  transform-origin: 40px 240px;
+  border-radius: 30% 34% 0 0;
+  background: linear-gradient(to bottom, rgba(247, 231, 111, 0.65) 0%, rgba(0, 0, 0, 0) 100%);
+}
+.card__image img {
+  width: 100%;
+}
+.card__details {
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  position: absolute;
+  right: 30px;
+  bottom: 30px;
+  letter-spacing: 2px;
+  z-index: 2;
+}
+.card__details a {
+  color: rgba(255, 255, 255, 0.3);
+  display: block;
+  text-decoration: none;
+}
+.card__details a:hover {
+  text-decoration: underline;
+}
+.card__shareStar {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  position: absolute;
+  right: 25px;
+  top: 25px;
+  z-index: 1;
+}
+.card__shareStar li {
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+  width: 30px;
+}
+.card__shareStar li:first-child {
+  margin-right: 10px;
+}
+.card__shareStar li svg {
+  width: 100%;
+}
+.card__shareStar li svg path {
+  fill: rgba(255, 255, 255, 0.3);
+}
+.card__shareStar li svg polygon {
+  stroke: rgba(255, 255, 255, 0.3);
+}
+.card__shareStar li:hover svg path,
+.card__shareStar li:hover svg polygon {
+  fill: #fff;
+}
+.card__shareStar li:hover svg polygon {
+  stroke: #fff;
+}
+.card__voting {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  color: rgba(255, 255, 255, 0.3);
+  font-size: 1.4rem;
+  position: absolute;
+  bottom: 30px;
+  left: 43px;
+  z-index: 1;
+}
+.card__voting li {
+  transition: all 0.2s;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  display: inline-block;
+  padding: 6px 20px 0 33px;
+}
+.card__voting li:hover {
+  cursor: pointer;
+  color: #fff;
+}
+.card__voting li:hover svg {
+  width: 100%;
+}
+.card__voting li:hover svg path {
+  fill: #fff;
+}
+.card__votingIcon {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 25px;
+}
+.card__votingIcon svg {
+  width: 100%;
+}
+.card__votingIcon svg path {
+  fill: rgba(255, 255, 255, 0.3);
+}
+.card__votingIcon svg circle {
+  stroke: rgba(255, 255, 255, 0.3);
+}
+.card:hover .card__image:after {
+  opacity: 1;
+}
+
+@media (max-width: 600px) {
+  .card {
+    width: 100%;
+    height: auto;
+    padding: 30px 30px 40px 30px;
+  }
+  .card__rank {
+    position: relative;
+    top: -9px;
+    left: 0;
+    display: inline-block;
+  }
+  .card__title {
+    margin-left: 20px;
+    margin-top: 5px;
+  }
+  .card__voting {
+    position: relative;
+    position: relative;
+    display: block;
+    bottom: 0;
+    left: 0;
+    margin-top: 30px;
+  }
+  .card__image {
+    width: 800px;
+    top: auto;
+    right: -270px;
+    bottom: -70px;
+  }
+  .card__image img {
+    width: 100%;
+  }
+  .card__image:after {
+    width: 190px;
+    height: 190px;
+    transform-origin: 50px 327px;
+    border-radius: 28% 36% 0 0;
+  }
+  .card__details {
+    position: relative;
+    right: 0;
+    bottom: 0;
+    left: 5px;
+    margin-top: 20px;
+  }
+  .card__shareStar {
+    position: relative;
+    top: 0;
+    right: 0;
+    margin-top: 50px;
+  }
+}
+@media (max-width: 500px) {
+  .card__image {
+    width: 700px;
+    right: -240px;
+  }
+  .card__image:after {
+    width: 160px;
+    height: 160px;
+    transform-origin: 42px 290px;
+    border-radius: 25% 32% 0 0;
+  }
+}
+@media (max-width: 400px) {
+  .card__image {
+    width: 540px;
+    right: -180px;
+    bottom: -40px;
+  }
+  .card__image:after {
+    width: 130px;
+    height: 130px;
+    transform-origin: 34px 220px;
+    border-radius: 29% 34% 0 0;
+  }
+}
+@media (max-width: 320px) {
+  .card {
+    width: 320px;
+  }
+}
