@@ -14,6 +14,9 @@ function PaymentSect() {
     <>
       <div className="payment">
         <div className="name">
+          <h1>Affluence par étage</h1>
+        </div>
+        <div className="name">
           <h4>Bib</h4>
           <p>Etage</p>
           <p>Busy</p>
