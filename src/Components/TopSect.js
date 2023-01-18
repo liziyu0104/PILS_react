@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FaSearch } from "react-icons/fa";
 import user from "../img/user.png";
 import axios from 'axios';
@@ -13,8 +13,18 @@ function TopSect() {
   const [signedIn, setSignedIn] = useState(false);
   const [email, setEmail] = useState("");
   const [pwd, setPwd] = useState("");
+  const [auth, setAuth] = useState("");
 
   axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
+
+  useEffect(() => {
+    const localAuth = localStorage.getItem("auth");
+    if (localAuth) {
+      setSignedIn(true);
+      setAuth(localAuth);
+      setEmail(localStorage.getItem("email"))
+    }
+  }, []);
 
   const signIn = () => {
     axios.post('https://stalco.tk/api/user/login', {
@@ -26,6 +36,7 @@ function TopSect() {
       response.status === 200 && setSignedIn(true)
       //TODO save Session id dans local storage -> get 
       localStorage.setItem("auth", response.data.data.session_id +" "+ response.data.data.session_secret);
+      localStorage.setItem("email", email);
 
     })
     .catch(function (error) {
@@ -49,7 +60,7 @@ function TopSect() {
 
   const signOut = (message) => {
     setSignedIn(false)
-    localStorage.removeItem("auth");
+    localStorage.clear();
   }
 
   const notify = (message) => {
