@@ -36,13 +36,10 @@ function Map(props) {
   <polygon points="63,37 70,37 70,49 63,49" fill="green" opacity="0.3" className='218'/></>,
   ];
 
-  const [zones, setZones] = useState([]);
+  const [zones, setZones] = useState(false);
 
   useEffect(() => {
-    props.floor[0].zones && props.floor[0].zones.map((zone) => {
-      console.log(zone);
-      setZones();
-    })
+    setZones(true)
 }, []);
 
   return (
@@ -54,10 +51,22 @@ function Map(props) {
     </linearGradient>
   </defs>
   
+  <image width="100%" height="100%" href={props.floor[0].image} alt="test" />
   
-  <image width="100%" 
-      height="100%" href={props.floor[0].image} alt="test" />
-      {/*props.floor*/}
+  {
+    props.floor[0].zones.map((zone) => {
+      //console.log(zone.type);
+      //return <p>ok</p>
+      if(zone.type === "circle"){
+        return <circle cx={zone.points[0]} cy={zone.points[1]} r={zone.radius} fill="green" opacity="0.3" />
+      } 
+      else {
+        return <polygon points={zone.points.toString()} fill="green" opacity="0.3" className='222'/>
+      }
+    })
+  }
+    
+      
 </svg></>
   );
 }
