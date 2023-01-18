@@ -32,14 +32,9 @@ function LibCont() {
     useEffect(() => {
         areas[0] && axios.get(`https://stalco.tk/api/area/`+areas[0].id)
         .then(res => {
-            //console.log(res.data.data.floors);
             setFloors(res.data.data.floors);
         });
     }, [areas]);
-
-    /*useEffect(() => {
-        console.log(floorSelected);
-    }, [floorSelected]);*/
 
   return (
     <>

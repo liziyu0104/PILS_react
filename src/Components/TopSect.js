@@ -37,6 +37,7 @@ function TopSect() {
       //TODO save Session id dans local storage -> get 
       localStorage.setItem("auth", response.data.data.session_id +" "+ response.data.data.session_secret);
       localStorage.setItem("email", email);
+      window.location.reload(false);
 
     })
     .catch(function (error) {
@@ -52,6 +53,7 @@ function TopSect() {
     .then(function (response) {
       console.log(response);
       response.status === 200 && setSignedIn(true)
+      window.location.reload(false);
     })
     .catch(function (error) {
       error.response.status === 409 && notify("Ce compte existe déjà");
@@ -61,6 +63,7 @@ function TopSect() {
   const signOut = (message) => {
     setSignedIn(false)
     localStorage.clear();
+    window.location.reload(false);
   }
 
   const notify = (message) => {

@@ -1,10 +1,11 @@
 import "./App.css";
+import React, { useState, useEffect } from "react";
 import SideBar from "./Components/SideBar";
 import Container from "./Components/Container";
 import B1 from "./Components/libaray1";
 import B2 from "./Components/libaray2";
 // import Help from "./Components/Help";
-// import Profile from "./Components/Profile";
+import Profile from "./Components/Profile";
 import Chat from "./Components/Chat";
 // import Store from "./Components/Store";
 import Music from "./Components/Listen";
@@ -20,19 +21,33 @@ import Weather from "./Components/Weather";
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 function App() {
+  const [signedIn, setSignedIn] = useState(false);
+  const [email, setEmail] = useState("");
+  const [pwd, setPwd] = useState("");
+  const [auth, setAuth] = useState("");
+
+  useEffect(() => {
+    const localAuth = localStorage.getItem("auth");
+    if (localAuth) {
+      setSignedIn(true);
+      setAuth(localAuth);
+      setEmail(localStorage.getItem("email"))
+    }
+  }, []);
+
   return (
     <>
       <div className="App">
 
         <Router>
-          <SideBar />
+          <SideBar signedIn={signedIn}/>
           {/* <Container /> */}
           <Routes>
             <Route path="/" element={<Container />} />
             <Route path="/Bib1" element={<B1 />} />
             <Route path="/Bib2" element={<B2 />} />
             {/* <Route path="/home/help" element={<Help />} /> */}
-            {/* <Route path="/profile" element={<Profile />} /> */}
+            <Route path="/profile" element={<Profile />} />
             {/* <Route path="/store" element={<Store />} /> */}
             <Route path="/home/chat" element={<Chat />} />
             <Route path="/home/music" element={<Music />} />

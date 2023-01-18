@@ -55,13 +55,13 @@ function Map(props) {
   
   {
     props.floor[0].zones.map((zone) => {
-      //console.log(zone.type);
+      console.log(zone);
       //return <p>ok</p>
       if(zone.type === "circle"){
-        return <circle cx={zone.points[0]} cy={zone.points[1]} r={zone.radius} fill="green" opacity="0.3" />
+        return <circle cx={zone.points[0]} cy={zone.points[1]} r={zone.radius} className={zone.name.toString()} fill="green" opacity="0.3" />
       } 
       else {
-        return <polygon points={zone.points.toString()} fill="green" opacity="0.3" className='222'/>
+        return <polygon points={zone.points.toString()} fill="green" opacity="0.3" className={zone.name.toString()}/>
       }
     })
   }

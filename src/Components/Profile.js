@@ -5,6 +5,8 @@ import { collection, onSnapshot } from "firebase/firestore";
 import "./profile.css";
 import { motion } from 'framer-motion';
 
+import { FaCog, FaUser, FaSignOutAlt,} from "react-icons/fa";
+
 
 const loaderVariants = {
     animationOne: {
@@ -24,14 +26,23 @@ const loaderVariants = {
     }
 }
 
+const Icon = ({ icon }) => (
+    <li>
+      <p href="">{icon}</p>
+    </li>
+  );
 
 
 const Home = () => {
     const [events, setEvents] = useState([]);
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
+    const [signedIn, setSignedIn] = useState(false);
+    const [email, setEmail] = useState("");
+    const [pwd, setPwd] = useState("");
+    const [auth, setAuth] = useState("");
 
-    useEffect(() => {
+    /* useEffect(() => {
         setLoading(true);
         const unsub = onSnapshot(collection(db, "events"), (snapshot) => {
             const list = [];
@@ -49,7 +60,16 @@ const Home = () => {
         return () => {
             unsub();
         };
-    }, []);
+    }, []); */
+
+    useEffect(() => {
+        const localAuth = localStorage.getItem("auth");
+        if (localAuth) {
+          setSignedIn(true);
+          setAuth(localAuth);
+          setEmail(localStorage.getItem("email"))
+        }
+      }, []);
 
 
     return (
@@ -59,20 +79,17 @@ const Home = () => {
                     <section className="profile-container">
                         {loading ? <motion.div variants={loaderVariants} animate="animationOne" className="updating-ball"></motion.div> : (
                             <article>
-                                {events && events.map((item) => (
-                                    <article key={item.id}>
+                                <article>
                                         <summary>
-                                            <img src={item.img} className="profile-img" alt="user" />
+                                            <Icon icon={<FaUser title="Your Administrator Profile"/>} />
                                             <section className="profile-details">
-                                                <h1 className="profile-name">{item.name}</h1>
-                                                <p className="profile-loc">Email: {item.email}</p>
-                                                <p className="profile-loc">Date Of Birth: {item.date}</p>
-                                                <p className="profile-loc">Location: {item.location}</p>
-                                                <button onClick={() => navigate(`/update/${item.id}`)} className="profile-btn">Edit Profile</button>
+                                                <p className="profile-loc">Email: {email}</p>
+                                                <p className="profile-loc">Date Of Birth: 1-1-1997</p>
+                                                <p className="profile-loc">Location: Bibliothèque Marie Curie</p>
+                                                <button onClick={() => {localStorage.clear(); navigate(`/`); window.location.reload(false);}} className="profile-btn">Se déconnecter</button>
                                             </section>
                                         </summary>
                                     </article>
-                                ))}
                             </article>
                         )}
                     </section>

@@ -15,7 +15,7 @@ const Icon = ({ icon }) => (
 );
 
 
-function SideBar() {
+function SideBar(props) {
   return (
     <header>
       <img src={logo} alt="logo" />
@@ -29,10 +29,10 @@ function SideBar() {
         {/* <Link to="/cat"><Icon icon={<IoPaw title="work with cat"/>} /></Link> */}
         <Link to="/home/news"><Icon icon={<IoGrid title="news"/>} /></Link>
         {/* <Link to="/store"><Icon icon={<IoCafe title="Coffee Togo"/>} /></Link> */}
-        {/* <Link to="/profile"><Icon icon={<FaUser title="Your Profile"/>} /></Link> */}
         {/* <Link to="/home/chat"><Icon icon={<IoMail title="Chat with sales rep"/>} /></Link> */}
         {/* <Link to="/home/help"><Icon icon={<IoIosHelpCircle title="FAQs"/>} /></Link> */}
         <Link to="/home/us"><Icon icon={<IoHardwareChipSharp title="about us"/>} /></Link>
+        {props.signedIn && <Link to="/profile"><Icon icon={<FaUser title="Your Administrator Profile"/>} /></Link>}
         
         
         {/* <Icon icon={<FaCog title="Settings"/>} /> */}
