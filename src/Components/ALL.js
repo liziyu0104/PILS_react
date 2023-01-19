@@ -6,6 +6,13 @@ import Map from "./Map";
 import PaymentSect from "./PaymentSect";
 import { Link } from "react-router-dom";
 
+import DatePicker from "react-datepicker";
+
+import "react-datepicker/dist/react-datepicker.css";
+import { registerLocale, setDefaultLocale } from  "react-datepicker";
+import fr from 'date-fns/locale/fr';
+
+
 import plan10 from "../img/plan_BU_R0.png";
 import plan11 from "../img/plan_BU_R1.png";
 import plan12 from "../img/plan_BU_R2.png";
@@ -13,13 +20,14 @@ import plan12 from "../img/plan_BU_R2.png";
 import plan0 from "../img/plan_BMC_R0.jpg";
 import plan1 from "../img/plan_BMC_R1.jpg";
 import plan2 from "../img/plan_BMC_R2.jpg";
-
+registerLocale('fr', fr)
 
 
 function LibCont() {
     const [areas, setAreas] = useState([]);
     const [floors, setFloors] = useState([]);
     const [floorSelected, setFloorSelected] = useState("");
+    const [startDate, setStartDate] = useState(new Date());
 
     useEffect(() => {
         axios.get(`https://stalco.tk/api/area/list`)
@@ -35,6 +43,10 @@ function LibCont() {
             setFloors(res.data.data.floors);
         });
     }, [areas]);
+
+    useEffect(() => {
+        console.log(startDate);
+    }, [startDate]);
 
   return (
     <>
@@ -69,7 +81,9 @@ function LibCont() {
                                 </div>)
                             })
                         :
-                            <Map floor={floors.filter(floor => floor.id === floorSelected)}/>
+                            <><h2 style={{color:"white"}}>Choisissez la date : </h2>
+                            <DatePicker locale="fr" dateFormat="dd/MM/yy" selected={startDate} onChange={(date) => setStartDate(date)} />
+                            <Map floor={floors.filter(floor => floor.id === floorSelected)}/></>
                         }
                         </main>
                     </div>

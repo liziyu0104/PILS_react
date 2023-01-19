@@ -42,6 +42,18 @@ function Map(props) {
     setZones(true)
 }, []);
 
+  function color(pourcentage){
+    if(pourcentage > 0.5){
+      if(pourcentage > 0.8){
+        return "red"
+      }else{
+        return "yellow"
+      }
+    }else{
+      return "green"
+    }
+  }
+
   return (
     <>
     <svg width="900px" height="500px" viewBox="0 0 200 100" xmlns="http://www.w3.org/2000/svg">
@@ -58,10 +70,10 @@ function Map(props) {
       console.log(zone);
       //return <p>ok</p>
       if(zone.type === "circle"){
-        return <circle cx={zone.points[0]} cy={zone.points[1]} r={zone.radius} className={zone.name.toString()} fill="green" opacity="0.3" />
+        return <circle cx={zone.points[0]} cy={zone.points[1]} r={zone.radius} className={zone.name.toString()} fill={color(Math.random())} opacity="0.3" />
       } 
       else {
-        return <polygon points={zone.points.toString()} fill="green" opacity="0.3" className={zone.name.toString()}/>
+        return <polygon points={zone.points.toString()} fill={color(Math.random())} opacity="0.3" className={zone.name.toString()}/>
       }
     })
   }
