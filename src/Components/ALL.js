@@ -25,6 +25,7 @@ registerLocale('fr', fr)
 
 function LibCont() {
     const [areas, setAreas] = useState([]);
+    const [area, setArea] = useState();
     const [floors, setFloors] = useState([]);
     const [floorSelected, setFloorSelected] = useState("");
     const [startDate, setStartDate] = useState(new Date());
@@ -41,11 +42,13 @@ function LibCont() {
         areas[0] && axios.get(`https://stalco.tk/api/area/`+areas[0].id)
         .then(res => {
             setFloors(res.data.data.floors);
+            setArea(res.data.data.id);
         });
     }, [areas]);
 
     useEffect(() => {
-        console.log(startDate);
+        console.log((startDate.getMonth()+1)+"."+startDate.getDate()+"."+startDate.getFullYear());
+
     }, [startDate]);
 
   return (
@@ -83,7 +86,7 @@ function LibCont() {
                         :
                             <><h2 style={{color:"white"}}>Choisissez la date : </h2>
                             <DatePicker locale="fr" dateFormat="dd/MM/yy" selected={startDate} onChange={(date) => setStartDate(date)} />
-                            <Map floor={floors.filter(floor => floor.id === floorSelected)}/></>
+                            <Map floor={floors.filter(floor => floor.id === floorSelected)} date={(startDate.getMonth()+1)+"."+startDate.getDate()+"."+startDate.getFullYear()} area={area}/></>
                         }
                         </main>
                     </div>

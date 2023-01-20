@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import { propTypes } from 'react-bootstrap/esm/Image';
 
 function Map(props) {
@@ -37,14 +38,27 @@ function Map(props) {
   ];
 
   const [zones, setZones] = useState(false);
+  const [occupancy, setOccupancy] = useState([]);
 
   useEffect(() => {
     setZones(true)
-}, []);
+    //props.date && console.log(props.date);
+  }, []);
 
-  function color(pourcentage){
-    if(pourcentage > 0.5){
-      if(pourcentage > 0.8){
+  useEffect(() => {
+    props.date && axios.get('https://stalco.tk/api/area/'+props.area+'/latest?day='+props.date)
+    .then(res => {
+        setOccupancy(res.data.data);
+    });
+  }, [zones]);  
+
+  function color(id){
+    let xZone = props.floor[0].zones.filter(zone => zone.id === id)
+    let data = occupancy.filter(o => o.id === id)
+    data[0] && console.log(data[0])
+    //console.log(xZone)
+    if(data[0] && data[0].data > 0){
+      if(data[0].data > 10){
         return "red"
       }else{
         return "yellow"
@@ -67,13 +81,13 @@ function Map(props) {
   
   {
     props.floor[0].zones.map((zone) => {
-      console.log(zone);
+      //console.log(zone);
       //return <p>ok</p>
       if(zone.type === "circle"){
-        return <circle cx={zone.points[0]} cy={zone.points[1]} r={zone.radius} className={zone.name.toString()} fill={color(Math.random())} opacity="0.3" />
+        return <circle cx={zone.points[0]} cy={zone.points[1]} r={zone.radius} className={zone.name.toString()} fill={color(zone.id)} opacity="0.3" />
       } 
       else {
-        return <polygon points={zone.points.toString()} fill={color(Math.random())} opacity="0.3" className={zone.name.toString()}/>
+        return <polygon points={zone.points.toString()} fill={color(zone.id)} opacity="0.3" className={zone.name.toString()}/>
       }
     })
   }
