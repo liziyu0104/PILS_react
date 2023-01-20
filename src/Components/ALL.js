@@ -86,7 +86,7 @@ function LibCont() {
                         :
                             <><h2 style={{color:"white"}}>Choisissez la date : </h2>
                             <DatePicker locale="fr" dateFormat="dd/MM/yy" selected={startDate} onChange={(date) => setStartDate(date)} />
-                            <Map floor={floors.filter(floor => floor.id === floorSelected)} date={(startDate.getMonth()+1)+"."+startDate.getDate()+"."+startDate.getFullYear()} area={area}/></>
+                            <Map floor={floors.filter(floor => floor.id === floorSelected)} date={startDate} area={area}/></>
                         }
                         </main>
                     </div>

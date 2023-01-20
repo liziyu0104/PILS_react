@@ -43,29 +43,44 @@ function Map(props) {
   useEffect(() => {
     setZones(true)
     //props.date && console.log(props.date);
-  }, []);
-
-  useEffect(() => {
-    props.date && axios.get('https://stalco.tk/api/area/'+props.area+'/latest?day='+props.date)
+    const tomorrow = props.date
+    tomorrow.setDate(tomorrow.getDate() + 1)
+    props.date && axios.get('https://stalco.tk/api/area/'+props.area+'/latest?to='+tomorrow.toISOString()+'&from='+props.date.toISOString())
     .then(res => {
         setOccupancy(res.data.data);
     });
-  }, [zones]);  
+  }, []);
+
+  useEffect(() => {
+    var tomorrow = new Date(props.date)
+    tomorrow.setDate(tomorrow.getDate() + 1)
+    //console.log(tomorrow)
+    props.date && axios.get('https://stalco.tk/api/area/'+props.area+'/latest?to='+tomorrow.toISOString()+'&from='+props.date.toISOString())
+    .then(res => {
+        setOccupancy(res.data.data);
+    });
+  }, [props.date]);  
 
   function color(id){
     let xZone = props.floor[0].zones.filter(zone => zone.id === id)
-    let data = occupancy.filter(o => o.id === id)
-    data[0] && console.log(data[0])
-    //console.log(xZone)
-    if(data[0] && data[0].data > 0){
-      if(data[0].data > 10){
-        return "red"
+    if(occupancy){
+      let data = occupancy.filter(o => o.id === id)
+      data[0] && console.log(data[0].data)
+      //console.log(xZone)
+      if(data[0] && data[0].data > 0){
+        if(data[0].data > 5){
+          return "red"
+        }else{
+          return "yellow"
+        }
       }else{
-        return "yellow"
+        return "green"
       }
-    }else{
-      return "green"
     }
+    else{
+      return "gray"
+    }
+    
   }
 
   return (
